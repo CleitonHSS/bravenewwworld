@@ -32,7 +32,7 @@ loaders = {
 }
 
 def get_documents():
-
+    documents: List[Document] = []
     # Create DirectoryLoader instances for each file type
     if(os.path.isdir(DOCS_PATH)):
         pdf_loader = create_directory_loader('.pdf', DOCS_PATH)
@@ -48,10 +48,10 @@ def get_documents():
         doc_documents = doc_loader.load()
         srt_documents = srt_loader.load()
 
-        return csv_documents + txt_documents + doc_documents + pdf_documents + srt_documents
+        documents = csv_documents + txt_documents + doc_documents + pdf_documents + srt_documents
     else:
         os.mkdir("documents/context") 
-        return []
+    return documents
 
 
 # Define a function to create a DirectoryLoader for a specific file type
@@ -156,14 +156,15 @@ def main():
                     documents_chunks: List[Document] = get_text_chunks(documents)
 
                     # create vector store
-                    
-                    vectorstore = get_vectorstore(documents_chunks, embeddings)
-                    if(vectorstore):
-                        st.write("The data was processed successfully")
-                        st.header("Processed Documents: ")
-                        for doc in documents:
-                            st.write(str(doc.metadata.get('source')).split('/')[2])
-                    st.session_state.conversation = get_conversation_chain(vectorstore)
+                    if(documents_chunks.__len__() > 0):
+                        vectorstore = get_vectorstore(documents_chunks, embeddings)
+                        if(vectorstore):
+                            st.write("The data was processed successfully")
+                            st.header("Processed Documents: ")
+                            for doc in documents:
+                                st.write(str(doc.metadata.get('source')).split('/')[2])
+                        st.session_state.conversation = get_conversation_chain(vectorstore)
+                    else: st.write("No document whit content.")
                 else: st.write("No document to be processed.")
                 
     if st.session_state.conversation:

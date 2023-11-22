@@ -7,8 +7,6 @@ This app is built for contemporany art projet. braveneWWWorld” is an artistic 
 ## How It Works
 ------------
 
-![BraveneWWWorld Chat App Diagram](./docs/PDF-LangChain.jpg)
-
 The application follows these steps to provide responses to your questions:
 
 1. The app reads multiple documents from a diretory and extracts their text content.

@@ -6,7 +6,12 @@ faiss-cpu==1.7.4
 altair==4.2.0
 tiktoken==0.4.0
 pydantic==2.5.2
-
+pymupdf==1.23.5
+unstructured==0.11.0
+python-docx==1.1.0
+pysrt==1.1.2
+charset-normalizer==2.1.0
+#python -m pip install charset-normalizer==2.1.0
 # uncomment to use huggingface llms
 # huggingface-hub==0.14.1
 
